@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import face_recognition
 
-imgelon =face_recognition.load_image_file("F:\CodingFolder(dont_move)\Python_Project\elon.jpg")
+imgelon =face_recognition.load_image_file("elon.jpg")
 imgelon_rgb = cv2.cvtColor(imgelon,cv2.COLOR_BGR2RGB)
 #----------Finding face Location for drawing bounding boxes-------
 face = face_recognition.face_locations(imgelon_rgb)[0]
