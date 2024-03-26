@@ -1,3 +1,5 @@
+import face_recognition
+
 class Human:
     serialNumber=0
     def __init__(self, fName , lName):
@@ -30,3 +32,4 @@ class Student(Human):
     
     def updateAttendace(self):
         self.attendance+=1
+
