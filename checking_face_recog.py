@@ -49,23 +49,25 @@ cap  = cv2.VideoCapture(0)
 
 while True:
     success, img = cap.read()
-    img_resized = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img_resized = cv2.resize(img, None, fx=0.25, fy = 0.25)
-    faces_in_frame = face_recognition.face_locations(img_resized)#assume that there is only one for this moment
-    for encode_face, faceloc in zip(train_devansh_encodings,faces_in_frame):
-            matches = face_recognition.compare_faces(train_devansh_encodings, encode_face)
-            faceDist = face_recognition.face_distance(train_devansh_encodings, encode_face)
-            matchIndex = np.argmin(faceDist)
-            print(matchIndex)
-            if matches[matchIndex]:
-                name = "Devansh"
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # img_new = cv2.resize(img, None, fx=0.25, fy = 0.25)
+    img_new = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    faces_in_frame = face_recognition.face_locations(img_new)#assume that there is only one for this moment
+    # for encode_face, faceloc in zip(train_devansh_encodings,faces_in_frame):
+    for faceloc in (faces_in_frame):
+            # matches = face_recognition.compare_faces(train_devansh_encodings, encode_face)
+            # faceDist = face_recognition.face_distance(train_devansh_encodings, encode_face)
+            # matchIndex = np.argmin(faceDist)
+            # print(matchIndex)
+            # if :
+                # name = "Devansh"
                 y1,x2,y2,x1 = faceloc
                 # since we scaled down by 4 times
-                y1, x2,y2,x1 = y1*4,x2*4,y2*4,x1*4
                 cv2.rectangle(img,(x1,y1),(x2,y2),(0,255,0),2)
-                cv2.rectangle(img, (x1,y2-35),(x2,y2), (0,255,0), cv2.FILLED)
-                cv2.putText(img,name, (x1+6,y2-5), cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),2)
+                # cv2.rectangle(img, (x1,y2-35),(x2,y2), (0,255,0), cv2.FILLED)
+                # cv2.putText(img,name, (x1+6,y2-5), cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),2)
     
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     cv2.imshow("WebCam", img)
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
