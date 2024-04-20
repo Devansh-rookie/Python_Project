@@ -112,6 +112,11 @@ def add_student():
         # Use os.system to execute the cp shell command
         # os.system(f"cp {src} {dest}")
         shutil.copy(src, dest)
+        split_about_slash = filename.split("/")
+        entryImgPathVar.set(dest +"/" +split_about_slash[-1])
+        os.rename(entryImgPathVar.get(), dest +"/" + entryRollVar.get()+".jpg")
+        entryImgPathVar.set(os.path.relpath("final_check\student_images"+f"\\{entryRollVar.get()}.jpg"))
+        # os.path.abspath() for absolute path
 
     filebrowserButton = Button(master= add_stu_win, text="Choose Image File", command=browseFiles)
     filebrowserButton.pack()
