@@ -54,6 +54,9 @@ class Database:
             for row in reader:
                 if(row["rollno"]!=rollno):
                     data.append(row)
+                else:
+                    if os.path.exists(row["imagepath"]):
+                        os.remove(row["imagepath"])
         with open(self.file_path, "w") as file:
             writer = csv.DictWriter(file, fieldnames=self.firstrow)
             writer.writeheader()
