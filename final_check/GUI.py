@@ -127,25 +127,47 @@ def add_student():
     add_stu_win.mainloop()
 
 
+def delete():
+    db = Database("final_check\database.csv")
+    del_stu_win = Tk()
+    del_stu_win.geometry("600x600")
+
+    entryFrameRoll = Frame(master= del_stu_win)
+    RollNo = Label(master= entryFrameRoll, text="Roll Number: ")
+    delRollVar = StringVar(master=del_stu_win)
+    RollEntry = Entry(master=entryFrameRoll, textvariable=delRollVar)
+    RollNo.pack(side="left")
+    RollEntry.pack(padx=10)
+    entryFrameRoll.pack(pady=10)
+
+    def done():
+        db.delete(delRollVar.get())
+        del_stu_win.destroy()
+
+    done_button = Button(master= del_stu_win, text="Done", command=done)
+    done_button.pack()
+    del_stu_win.mainloop()
+
+
 window = Tk()
 window.geometry("800x800")
 
-with open("final_check/database.csv", "r") as fobj:
+with open("final_check\database.csv", "r") as fobj:
     read_val = csv.DictReader(fobj)
     data_listed = []
     for row in read_val:
         data_listed.append(row)
-
+# print(data_listed)
 FrameHead = Frame(master=window)
 labelHeadName = Label(master=FrameHead, text="Name")
 labelRollName = Label(master=FrameHead, text="Roll Number")
 labelPathImgName = Label(master=FrameHead, text="Image Path")
-labelHeadName.pack(side="left")
-labelRollName.pack(side="left")
-labelPathImgName.pack(side="right")
-FrameHead.pack()
+labelHeadName.pack(side="left", anchor="w",padx=50)
+labelRollName.pack(side="left", padx=50)
+labelPathImgName.pack(side="left",padx=50)
+FrameHead.pack(anchor="w")
 
-if(len(data_listed)!=0):
+if(len(data_listed)==0):
     labelHeadName = Label(master=window, text="No Students")
     labelHeadName.pack()
 else:
@@ -154,14 +176,59 @@ else:
         labelHeadName = Label(master=FrameHead, text=data_row["name"])
         labelRollName = Label(master=FrameHead, text=data_row["rollno"])
         labelPathImgName = Label(master=FrameHead, text=data_row["imagepath"])
-        labelHeadName.pack(side="left")
-        labelRollName.pack(side="left")
-        labelPathImgName.pack(side="right")
+        labelHeadName.pack(side="left", padx=50)
+        labelRollName.pack(side="left", padx=50)
+        labelPathImgName.pack(side="left", padx=50)
         FrameHead.pack()
+
+
+def refresh():
+    window = Tk()
+    window.geometry("800x800")
+
+    with open("final_check\database.csv", "r") as fobj:
+        read_val = csv.DictReader(fobj)
+        data_listed = []
+        for row in read_val:
+            data_listed.append(row)
+    # print(data_listed)
+    FrameHead = Frame(master=window)
+    labelHeadName = Label(master=FrameHead, text="Name")
+    labelRollName = Label(master=FrameHead, text="Roll Number")
+    labelPathImgName = Label(master=FrameHead, text="Image Path")
+    labelHeadName.pack(side="left", anchor="w",padx=50)
+    labelRollName.pack(side="left", padx=50)
+    labelPathImgName.pack(side="left",padx=50)
+    FrameHead.pack(anchor="w")
+
+    if(len(data_listed)==0):
+        labelHeadName = Label(master=window, text="No Students")
+        labelHeadName.pack()
+    else:
+        for data_row in data_listed:
+            # if this doesn't work just use multiple tabs and call it a day
+            FrameHead = Frame(master=window)
+            labelHeadName = Label(master=FrameHead, text=data_row["name"])
+            labelRollName = Label(master=FrameHead, text=data_row["rollno"])
+            labelPathImgName = Label(master=FrameHead, text=data_row["imagepath"])
+            labelHeadName.pack(side="left", padx=50)
+            labelRollName.pack(side="left", padx=50)
+            labelPathImgName.pack(side="left", padx=50)
+            FrameHead.pack()
+    button = Button(master= window, text="Add a new student", command=add_student)
+    button.pack()
+    refreshButton = Button(master=window, text="Refresh", command=lambda: [window.destroy(),refresh()])
+    refreshButton.pack()
+    delButton = Button(master= window, text="Delete student", command=delete)
+    delButton.pack()
+    window.mainloop()
 
 
 
 button = Button(master= window, text="Add a new student", command=add_student)
 button.pack()
-
+refreshButton = Button(master=window, text="Refresh", command=lambda: [window.destroy(),refresh()])
+refreshButton.pack()
+delButton = Button(master= window, text="Delete student", command=delete)
+delButton.pack()
 window.mainloop()
