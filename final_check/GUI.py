@@ -80,7 +80,7 @@ def add_student():
     add_stu_win = Tk()
     add_stu_win.geometry("600x600")
     
-    db = Database("final_check\database.csv")
+    db = Database("final_check/database.csv")
 
     entryFrame = Frame(master= add_stu_win)
     nameLabel = Label(master= entryFrame, text="Name: ")
@@ -160,7 +160,7 @@ def delete():
 window = Tk()
 window.geometry("800x800")
 
-with open("final_check\database.csv", "r") as fobj:
+with open("final_check/database.csv", "r") as fobj:
     read_val = csv.DictReader(fobj)
     data_listed = []
     for row in read_val:
@@ -184,17 +184,17 @@ else:
         labelHeadName = Label(master=FrameHead, text=data_row["name"])
         labelRollName = Label(master=FrameHead, text=data_row["rollno"])
         labelPathImgName = Label(master=FrameHead, text=data_row["imagepath"])
-        labelHeadName.pack(side="left", padx=50)
-        labelRollName.pack(side="left", padx=50)
-        labelPathImgName.pack(side="left", padx=50)
-        FrameHead.pack()
+        labelHeadName.pack(side="left", anchor="w",padx=50)
+        labelRollName.pack(side="left", anchor="w",padx=50)
+        labelPathImgName.pack(side="left",anchor="w", padx=50)
+        FrameHead.pack(anchor="w")
 
 
 def refresh():
     window = Tk()
     window.geometry("800x800")
 
-    with open("final_check\database.csv", "r") as fobj:
+    with open("final_check/database.csv", "r") as fobj:
         read_val = csv.DictReader(fobj)
         data_listed = []
         for row in read_val:
@@ -205,8 +205,8 @@ def refresh():
     labelRollName = Label(master=FrameHead, text="Roll Number")
     labelPathImgName = Label(master=FrameHead, text="Image Path")
     labelHeadName.pack(side="left", anchor="w",padx=50)
-    labelRollName.pack(side="left", padx=50)
-    labelPathImgName.pack(side="left",padx=50)
+    labelRollName.pack(side="left",anchor="w", padx=50)
+    labelPathImgName.pack(side="left",anchor="w",padx=50)
     FrameHead.pack(anchor="w")
 
     if(len(data_listed)==0):
@@ -222,7 +222,7 @@ def refresh():
             labelHeadName.pack(side="left", padx=50)
             labelRollName.pack(side="left", padx=50)
             labelPathImgName.pack(side="left", padx=50)
-            FrameHead.pack()
+            FrameHead.pack(anchor="w")
     button = Button(master= window, text="Add a new student", command=add_student)
     button.pack()
     refreshButton = Button(master=window, text="Refresh", command=lambda: [window.destroy(),refresh()])
