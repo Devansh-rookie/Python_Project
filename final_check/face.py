@@ -6,11 +6,11 @@ from datetime import datetime
 import pickle
 
 
-path = 'final_check\student_images'
+path = 'final_check/student_images'
 
 images = []
 classNames = []
-if os.path.exists("final_check\student_images"):
+if os.path.exists(path):
     mylist = os.listdir(path)
 else:
     print("Doesn't exist")

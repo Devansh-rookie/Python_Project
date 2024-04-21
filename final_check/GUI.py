@@ -109,7 +109,7 @@ def add_student():
                                                             "*.*")))
         
         src =filename
-        dest = "final_check\student_images"
+        dest = "final_check/student_images"
         entryImgPathVar.set(filename)
 
         # Use os.system to execute the cp shell command
@@ -118,7 +118,7 @@ def add_student():
         split_about_slash = filename.split("/")
         entryImgPathVar.set(dest +"/" +split_about_slash[-1])
         os.rename(entryImgPathVar.get(), dest +"/" + entryRollVar.get()+".jpg")
-        entryImgPathVar.set(os.path.relpath("final_check\student_images"+f"\\{entryRollVar.get()}.jpg"))
+        entryImgPathVar.set(os.path.relpath("final_check/student_images"+f"/{entryRollVar.get()}.jpg"))
         # os.path.abspath() for absolute path
 
     filebrowserButton = Button(master= add_stu_win, text="Choose Image File", command=browseFiles)
@@ -136,7 +136,7 @@ def add_student():
 
 
 def delete():
-    db = Database("final_check\database.csv")
+    db = Database("final_check/database.csv")
     del_stu_win = Tk()
     del_stu_win.geometry("600x600")
 
@@ -159,7 +159,8 @@ def delete():
 
 window = Tk()
 window.geometry("800x800")
-
+height = window.winfo_screenheight()
+width = window.winfo_screenwidth()
 with open("final_check/database.csv", "r") as fobj:
     read_val = csv.DictReader(fobj)
     data_listed = []
