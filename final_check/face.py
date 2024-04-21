@@ -3,9 +3,10 @@ import face_recognition
 import os
 import numpy as np
 from datetime import datetime
+from datetime import date
 import pickle
-
-with open(f'final_check/Attendance_{datetime.date()}.csv','w') as f:
+todaysdate=date.today()
+with open(f'final_check/Attendance_{todaysdate}.csv','w') as f:
     pass
 path = 'final_check/student_images'
 
@@ -31,7 +32,7 @@ def findEncodings(images):
 encoded_face_train = findEncodings(images)
 
 def markAttendance(name):
-    with open(f'final_check/Attendance_{datetime.date()}.csv','r+') as f:
+    with open(f'final_check/Attendance_{todaysdate}.csv','r+') as f:
         myDataList = f.readlines()
         nameList = []
         for line in myDataList:
