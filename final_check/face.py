@@ -5,6 +5,10 @@ import numpy as np
 from datetime import datetime
 from datetime import date
 import pickle
+import pymysql
+
+
+
 todaysdate=date.today()
 with open(f'final_check/Attendance_{todaysdate}.csv','w') as f:
     pass
@@ -43,7 +47,57 @@ def markAttendance(name):
             time = now.strftime('%I:%M:%S:%p')
             date = now.strftime('%d-%B-%Y')
             f.writelines(f'\n{name}, {time}, {date}')
-
+    con = pymysql.connect(host="localhost",user= "root",password="omdevansh24", db="studentmanagementsystem1")
+    cursor = con.cursor()
+    cursor.execute("select * from studentattendance1")
+    output = cursor.fetchall()
+    if len(output)==0:
+        now = datetime.now()
+        time = now.strftime('%I:%M:%S:%p')
+        date = now.strftime('%d-%B-%Y')
+        # print(f"insert into studentattendance1(id, numOfClasses, lastClassAttended) values('{name}','1','{str(time)}-{str(date)}')")
+        cursor.execute(f"insert into studentattendance1(id, numOfClasses, lastClassAttended) values('{name}','1','{str(time)}_{str(date)}')")
+        con.commit()
+        cursor = con.cursor()
+        cursor.execute("select * from studentattendance1")
+        output = cursor.fetchall()
+    # print(name)
+    for record in output:
+        if (name) == record[0]:
+            now = datetime.now()
+            time = now.strftime('%I:%M:%S:%p')
+            date = now.strftime('%d-%B-%Y')
+            cursor.execute(f"select numOfClasses from studentattendance1 where id = '{name}'")
+            num = cursor.fetchone()
+            num = num[0]
+            cursor.execute(f"select lastClassAttended from studentattendance1 where id = '{name}'")
+            prevDate = cursor.fetchone()
+            prevDate = prevDate[0]
+            prevDate = (prevDate.split("_"))[1]
+            if not date == prevDate:
+                cursor.execute(f"update studentattendance1 set lastClassAttended = '{time}_{date}',numOfClasses= '{int(num)+1}'")
+                con.commit()
+                cursor.execute("select * from studentattendance1")
+                output = cursor.fetchall()
+                return
+            else:
+                cursor.execute(f"update studentattendance1 set lastClassAttended = '{time}_{date}',numOfClasses= '{int(num)}'")
+                con.commit()
+                cursor.execute("select * from studentattendance1")
+                output = cursor.fetchall()
+                return
+    else:
+        # print(record[0])
+        now = datetime.now()
+        time = now.strftime('%I:%M:%S:%p')
+        date = now.strftime('%d-%B-%Y')
+        
+        cursor.execute(f"insert into studentattendance1 values('{name}','{1}','{time}_{date}')")
+        con.commit()
+        cursor.execute("select * from studentattendance1")
+        output = cursor.fetchall()
+    con.close()
+        
 
 cap  = cv2.VideoCapture(0)
 while True:
@@ -70,3 +124,4 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
+# con.close()

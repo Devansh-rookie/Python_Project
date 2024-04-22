@@ -314,6 +314,10 @@ def deletestudent():
     # mycursor.execute(strr)
     datas = mycursor.fetchall()
     studenttable.delete(cc)
+    imgPath = f"final_check/student_images/{pp}.jpg"
+    if os.path.exists(imgPath):
+        os.remove(imgPath)
+    
     for i in datas:
         vv = [i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]]
         studenttable.insert('', END, values=vv)
