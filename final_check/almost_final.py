@@ -3,7 +3,7 @@ import pymysql
 import pandas
 import shutil
 import os
-import final_check/face.py
+import face
 
 def addstudent():
     def submitadd():
@@ -598,7 +598,8 @@ def show_attendance():
             attstudenttable.insert('',END,values=vv)
 
 def mark_att():
-    os.system("final_check/face.py")
+    # os.system("final_check/face.py")
+    face.mainFunction()
 
 def tick():
     time_string=time.strftime("%H:%M:%S")
