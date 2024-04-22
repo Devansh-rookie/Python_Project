@@ -46,7 +46,7 @@ def addstudent():
     addroot.grab_set()
     addroot.geometry('530x530+220+200')
     addroot.title('Student Management System')
-    addroot.config(bg='blue')
+    addroot.config(bg='wheat')
     addroot.iconbitmap('Webalys-Kameleon.pics-Student-3.512 (1).ico')
     addroot.resizable(False,False)
     #-------------------------------------------add student labels
@@ -222,7 +222,7 @@ def searchstudent():
     searchroot = Toplevel(master=Dataentryframe)
     searchroot.geometry('470x540+220+200')
     searchroot.title('Student Management System')
-    searchroot.config(bg='firebrick1')
+    searchroot.config(bg='wheat') #firebrick1
     searchroot.iconbitmap('Webalys-Kameleon.pics-Student-3.512 (1).ico')
     searchroot.resizable(False,False)
     searchroot.grab_set()
@@ -351,7 +351,7 @@ def updatestudent():
     updateroot = Toplevel(master=Dataentryframe)
     updateroot.geometry('470x670+220+160')
     updateroot.title('Student Management System')
-    updateroot.config(bg='firebrick1')
+    updateroot.config(bg='wheat')
     updateroot.iconbitmap('Webalys-Kameleon.pics-Student-3.512 (1).ico')
     updateroot.resizable(False,False)
     updateroot.grab_set()
@@ -524,7 +524,7 @@ def connectdb():
     dbroot.iconbitmap('Webalys-Kameleon.pics-Student-3.512 (1).ico')
     dbroot.resizable(False,False)
     dbroot.geometry('470x250+800+230')
-    dbroot.config(bg='Blue')
+    dbroot.config(bg='wheat')
     # idlabel=Label(root)
     idlabel=Label(dbroot,text='Enter Host : ',bg='gold2',font=('times',20,'bold'),relief=GROOVE,borderwidth=3,width=13,anchor="w")
     idlabel.place(x=10,y=10)
@@ -560,15 +560,15 @@ def connectdb():
 def show_attendance():
     showAttendanceRoot = Toplevel(master=root)
     showAttendanceRoot.geometry("800x600")
-    attendaceLabel = Label(master=showAttendanceRoot, text="Attendance", borderwidth=5, font=('times', 30, 'bold'),relief="ridge", background="cyan")
+    attendaceLabel = Label(master=showAttendanceRoot, text="Attendance", borderwidth=5, font=('times', 30, 'bold'),relief="ridge", background="#694A38",foreground="wheat") 
     attendaceLabel.place(x=300, y=10)
     attDataFrame=Frame(master=showAttendanceRoot,bg='white',relief=GROOVE,borderwidth=5)
     attDataFrame.place(x=80,y=80,width=650,height=520)
 
     ##--------------------------------------------Show data frame
     attstyle= ttk.Style()
-    attstyle.configure('Treeview.Heading',font=('chiller',20,'bold'),foreground='blue')
-    attstyle.configure('Treeview',font=('times',15,'bold'),foreground='black',background='cyan')
+    attstyle.configure('Treeview.Heading',font=('chiller',20,'bold'),foreground='black') #blue
+    attstyle.configure('Treeview',font=('times',15,'bold'),foreground='black',background='wheat')
     att_scroll_x= Scrollbar(attDataFrame,orient=HORIZONTAL)
     att_scroll_y= Scrollbar(attDataFrame,orient=VERTICAL)
     attstudenttable=Treeview(attDataFrame,columns=('Id','Name','Last Attended', 'Total Attended'),yscrollcommand=scroll_y.set,xscrollcommand=att_scroll_x.set)
@@ -594,8 +594,8 @@ def show_attendance():
     for child in attstudenttable.get_children():
         attstudenttable.delete(child)
     for i in datas:
-            vv=[i[0],i[1],i[2],i[3]] 
-            attstudenttable.insert('',END,values=vv)
+            dataForColumns=[i[0],i[1],i[2],i[3]] 
+            attstudenttable.insert('',END,values=dataForColumns)
 
 def mark_att():
     # os.system("final_check/face.py")
@@ -640,7 +640,7 @@ import random
 
 root=Tk()
 root.title("Student Management System")
-root.config(bg='#2C3531')
+root.config(bg='#694A38') # 694A38 #2C3531
 root.geometry('1274x730+200+50')
 root.iconbitmap('Webalys-Kameleon.pics-Student-3.512 (1).ico')
 root.resizable(False,False)
@@ -677,8 +677,8 @@ Showdataframe.place(x=550,y=80,width=620,height=600)
 
 ##--------------------------------------------Show data frame
 style= ttk.Style()
-style.configure('Treeview.Heading',font=('chiller',20,'bold'),foreground='blue')
-style.configure('Treeview',font=('times',15,'bold'),foreground='black',background='cyan')
+style.configure('Treeview.Heading',font=('chiller',20,'bold'),foreground='black') # blue
+style.configure('Treeview',font=('times',15,'bold'),foreground='black',background='#F6DEB3') #cyan
 scroll_x= Scrollbar(Showdataframe,orient=HORIZONTAL)
 scroll_y= Scrollbar(Showdataframe,orient=VERTICAL)
 studenttable=Treeview(Showdataframe,columns=('Id','Name','Mobile No','Email','Address','Gender','D.O.B','Added Date','Added Time'),yscrollcommand=scroll_y.set,xscrollcommand=scroll_x.set)
@@ -711,12 +711,12 @@ ss= 'Welcome To Student Management System'
 count=0
 text =''
 ###################################################################
-SliderLabel=Label(root,text=ss,font=('chiller',30,'italic bold'),relief=RIDGE,borderwidth=4,width=35,bg='cyan')
-SliderLabel.place(x=260,y=0)
+SliderLabel=Label(root,text=ss,font=('chiller',30,'italic bold'),relief=RIDGE,borderwidth=4,width=35,bg='#0E1C36') # bg = 'cyan'
+SliderLabel.place(x=160,y=0)
 introlabel()
 introlabelcolorpicker()
 ##################################################################### clock
-clock=Label(root,font=('times',14,'bold'),relief=RIDGE,borderwidth=4,bg='lawn green')
+clock=Label(root,font=('times',14,'bold'),relief=RIDGE,borderwidth=4,bg='wheat')#lawn green
 clock.place(x=0,y=0)
 tick()
 ################################################################ Button to connect database
