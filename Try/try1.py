@@ -1,6 +1,8 @@
 import pymysql 
 # from pymysql import *
 import pandas
+import shutil
+import os
 
 def addstudent():
     def submitadd():
@@ -26,6 +28,7 @@ def addstudent():
                 addressval.set('')
                 genderval.set('')
                 dobval.set('')
+
         except:
             messagebox.showerror('Notifications','Id already exist try another id....',parent=addroot)
         strr= 'select * from studentdata1'
@@ -40,7 +43,7 @@ def addstudent():
         
     addroot = Toplevel(master=Dataentryframe)
     addroot.grab_set()
-    addroot.geometry('470x470+220+200')
+    addroot.geometry('530x530+220+200')
     addroot.title('Student Management System')
     addroot.config(bg='blue')
     addroot.iconbitmap('Webalys-Kameleon.pics-Student-3.512 (1).ico')
@@ -66,6 +69,7 @@ def addstudent():
     
     doblabel= Label(addroot,text='Enter D.O.B:',bg='gold2',font=('times',20,'bold'),relief=GROOVE,borderwidth=3,width=12,anchor='w')
     doblabel.place(x=10,y=370)
+
     
     ##--------------------------------------------------Add student Entry
     idval=StringVar()
@@ -75,6 +79,7 @@ def addstudent():
     addressval=StringVar()
     genderval=StringVar()
     dobval=StringVar()
+    entryImgPathVar = StringVar()
     
     identry= Entry(addroot,font=('roman',15,'bold'),bd=5,textvariable=idval)
     identry.place(x=250,y=10)
@@ -96,9 +101,32 @@ def addstudent():
     
     dobentry= Entry(addroot,font=('roman',15,'bold'),bd=5,textvariable=dobval)
     dobentry.place(x=250,y=370)
+
+    def browseFiles():
+        filename = filedialog.askopenfilename(initialdir = "/",
+                                            title = "Select a File",
+                                            filetypes = (("Image Files",
+                                                            "*.jpg*"),
+                                                        ("all files",
+                                                            "*.*")))
+        
+        src =filename
+        dest = "final_check/student_images"
+        entryImgPathVar.set(filename)
+
+        # Use os.system to execute the cp shell command
+        # os.system(f"cp {src} {dest}")
+        shutil.copy(src, dest)
+        split_about_slash = filename.split("/")
+        entryImgPathVar.set(dest +"/" +split_about_slash[-1])
+        os.rename(entryImgPathVar.get(), dest +"/" + idval.get()+".jpg")
+        entryImgPathVar.set(os.path.relpath("final_check/student_images"+f"/{idval.get()}.jpg"))
     ################----------------------------add button
+    fileAdd= Button(addroot,text='Add Image',font=('roman',15,'bold'),width=20,bd=5,activebackground='blue',activeforeground='white',bg='red',command=browseFiles)
+    fileAdd.place(x=150,y=420)
+
     submitbtn= Button(addroot,text='Submit',font=('roman',15,'bold'),width=20,bd=5,activebackground='blue',activeforeground='white',bg='red',command=submitadd)
-    submitbtn.place(x=150,y=420)
+    submitbtn.place(x=150,y=470)
     addroot.mainloop()
     
 def searchstudent():
@@ -316,7 +344,7 @@ def updatestudent():
             vv=[i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7],i[8]] 
             studenttable.insert('',END,values=vv) 
     updateroot = Toplevel(master=Dataentryframe)
-    updateroot.geometry('470x610+220+160')
+    updateroot.geometry('470x670+220+160')
     updateroot.title('Student Management System')
     updateroot.config(bg='firebrick1')
     updateroot.iconbitmap('Webalys-Kameleon.pics-Student-3.512 (1).ico')
@@ -359,7 +387,8 @@ def updatestudent():
     dobval=StringVar()
     dateval=StringVar()
     timeval=StringVar()
-    
+    entryImgPathVar = StringVar()
+
     identry= Entry(updateroot,font=('roman',15,'bold'),bd=5,textvariable=idval)
     identry.place(x=250,y=10)
     
@@ -386,9 +415,31 @@ def updatestudent():
     
     timeentry= Entry(updateroot,font=('roman',15,'bold'),bd=5,textvariable=timeval)
     timeentry.place(x=250,y=490)
+    def browseFiles():
+        filename = filedialog.askopenfilename(initialdir = "/",
+                                            title = "Select a File",
+                                            filetypes = (("Image Files",
+                                                            "*.jpg*"),
+                                                        ("all files",
+                                                            "*.*")))
+        
+        src =filename
+        dest = "final_check/student_images"
+        entryImgPathVar.set(filename)
+
+        # Use os.system to execute the cp shell command
+        # os.system(f"cp {src} {dest}")
+        shutil.copy(src, dest)
+        split_about_slash = filename.split("/")
+        entryImgPathVar.set(dest +"/" +split_about_slash[-1])
+        os.rename(entryImgPathVar.get(), dest +"/" + idval.get()+".jpg")
+        entryImgPathVar.set(os.path.relpath("final_check/student_images"+f"/{idval.get()}.jpg"))
+    ################----------------------------add button
+    fileAdd= Button(updateroot,text='Add Image',font=('roman',15,'bold'),width=20,bd=5,activebackground='blue',activeforeground='white',bg='red',command=browseFiles)
+    fileAdd.place(x=150,y=540)
     ################----------------------------update button
     submitbtn= Button(updateroot,text='Submit',font=('roman',15,'bold'),width=20,bd=5,activebackground='blue',activeforeground='white',bg='red',command=update)
-    submitbtn.place(x=150,y=540)
+    submitbtn.place(x=150,y=590)
     cc= studenttable.focus()
     content= studenttable.item(cc)
     pp= content['values']
