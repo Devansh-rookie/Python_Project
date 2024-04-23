@@ -600,7 +600,7 @@ def show_attendance():
 def mark_att():
     # os.system("final_check/face.py")
     # face.mainFunction()
-    pass
+    return
 
 def tick():
     time_string=time.strftime("%H:%M:%S")
