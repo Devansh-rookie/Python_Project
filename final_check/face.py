@@ -124,4 +124,4 @@ def mainFunction():
             break
 
     # con.close()
-# mainFunction()
+mainFunction()
