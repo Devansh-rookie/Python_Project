@@ -3,7 +3,7 @@ import pymysql
 import pandas
 import shutil
 import os
-import face
+# import face
 
 def addstudent():
     def submitadd():
