@@ -15,3 +15,5 @@ Sanchi, Roll No. 123110032
 Sanskar Aggarwal, Roll No. 123110024
 
 Please check final_check/final.py for the main GUI and final_check/face.py for Marking attendance with Face Recognition.
+
+Video explaination: https://drive.google.com/file/d/1QhAy7txhQXPymM_6y4gakrcOscUJBqAa/view?usp=sharing
